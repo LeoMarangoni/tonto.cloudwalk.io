@@ -34,10 +34,10 @@ Note: For use GMAIL account for sending notification, maybe you need to change s
 [google security page](https://myaccount.google.com/security). There you may look for "third party apps" or "app password"
 
 ### TODOs
-- TODO: import configs from env vars instead setting in config.py
-- TODO: Adjust '/feed' endpoint to return RSS feed instead of list of events
-- TODO: Improve this README
-- TODO: Adjust notify to handle SSL and Non SSL connections via SMTP
-- TODO: Test different mail providers besides gmail
-- TODO: Refact some pieces of code
-- TODO: CI/CD
+- [ ] TODO: import configs from env vars instead setting in config.py
+- [X] TODO: Adjust '/feed' endpoint to return RSS feed instead of list of events
+- [ ] TODO: Improve this README
+- [ ] TODO: Adjust notify to handle SSL and Non SSL connections via SMTP
+- [ ] TODO: Test different mail providers besides gmail
+- [ ] TODO: Refact some pieces of code
+- [ ] TODO: CI/CD

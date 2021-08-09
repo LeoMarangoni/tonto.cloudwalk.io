@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Tonto Status RSS Feed</title>
+    <link href="{{ uri }}"/>
+    <updated>{{ events[-1]['updated'] }}</updated>
+    <author>
+        <name>Notification service</name>
+        <email>{{ mail }}</email>
+        <uri>{{ uri }}</uri>
+    </author><id>{{ uri }}</id>
+    <subtitle>Service Monitoring RSS Feed</subtitle>
+    <category term="monitoring"/>
+    {% for event in events|reverse %}
+        <entry>
+            <title>Service {{ event['service']}} is {{ event['status']}}</title>
+            <link href="{{ uri }}"/>
+            <id>{{ event['service']}}{{ event['updated']}}</id>
+            <updated>{{ event['updated']}}</updated>
+            <summary>The service {{ event['service'] }} was verified and is {{ event['status'] }} since {{ event['updated']}}!</summary>
+            <author>
+                <name>Notification service</name>
+            </author>
+        </entry>
+    {% endfor %}
+</feed>

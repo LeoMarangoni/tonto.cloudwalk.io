@@ -2,7 +2,7 @@ import threading
 import config
 from checks import http_check, tcp_check
 
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response, request
 
 def create_app():
     '''We need this method to inicialize our checking services before starting
@@ -39,10 +39,12 @@ app = create_app()
 def index():
     return render_template('dash.html', services=config.current_status, events=config.events)
 
-#TODO: return a rss feed page instead of event listing
 @app.route("/feed")
-def feed():
-    return render_template('feed.html', events=config.events)
+def newfeed():
+    template =  render_template('feed.xml', events=config.events, uri=request.host_url, mail=config.mail_user)
+    response = make_response(template)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
 
 
 if __name__ == "__main__":
