@@ -40,3 +40,4 @@ Note: For use GMAIL account for sending notification, maybe you need to change s
 - TODO: Adjust notify to handle SSL and Non SSL connections via SMTP
 - TODO: Test different mail providers besides gmail
 - TODO: Refact some pieces of code
+- TODO: CI/CD
