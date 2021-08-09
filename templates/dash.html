@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    </head>
+  <body>
+    <div class="ui text container">
+      <h1 class="ui dividing header">Tonto CloudWalk</h1>
+
+      <h3 class="first">Service Status</h3>
+      {% for service in services %}
+        {% if services[service]['status'] == "unhealthy" %}
+          <div class="ui icon red message">
+            <i class="cloud icon"></i>
+            {{ service.upper() }} service is DOWN since {{ services[service]['updated'] }}
+          </div>
+        {% endif %}
+        {% if services[service]['status'] == "healthy" %}
+          <div class="ui icon green message">
+            <i class="cloud icon"></i>
+            {{ service.upper() }} service is UP since {{ services[service]['updated'] }}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <div class="ui divider"></div>
+
+      <h3 class="first">Feed</h3>
+      <div class="ui feed">
+        {% for event in events|reverse %}
+          <div class="event">
+            <div class="label">
+              <i class="bell icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                Service status has changed
+                <div class="date">
+                  {{ event['updated'] }}
+                </div>
+            </div>
+              <div class="extra text">
+                The service <b>{{ event['service'] }}</b> has changed to <b>{{ event['status'] }}</b>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+
+
+
+    </div>
+  </body>
+</html>
