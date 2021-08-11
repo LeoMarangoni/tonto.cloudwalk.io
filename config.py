@@ -9,7 +9,10 @@ from firebase_admin import firestore
 cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred)
 db = firestore.client()
-config = db.collection('tontocloudwalk').document('config').get()
+collection = db.collection('tontocloudwalk')
+config = collection.document('config').get()
+data = collection.document('data')
+
 ###
 
 #common
@@ -51,9 +54,4 @@ def init():
     global current_status
     global events
     events = []
-    current_status = {
-        'http': {"status":'unhealthy',"updated":datetime.now()},
-        'tcp': {"status":'unhealthy',"updated":datetime.now()}
-    
-    }
     logging.basicConfig(level=loglevel, format='%(asctime)s|%(levelname)s|%(funcName)s|%(message)s')
