@@ -24,19 +24,20 @@ unhealth_threshold=config.get('unhealth_threshold')
 mail_notify=config.get('mail_notify') # user that will be notified
 test_string='my text to check services' # String that would be send to the services
 
-# Endpoints
+# Endpoints - Could be stored externaly, but there is no need
 ##http
-http_ep='https://tonto-http.cloudwalk.io' #http endpoint
+http_ep='https://tonto-http.cloudwalk.io'
 ##tcp
 tcp_ep='tonto.cloudwalk.io' #tcp endpoint
 tcp_port=3000
 
 
 #email
-mail_server='smtp.gmail.com'
-mail_port=465
-mail_user='' # email used for sending notifications
-mail_password=''
+mail = config.get('mail')
+mail_server=mail['server']
+mail_port=mail['port']
+mail_user=mail['user'] # email used for sending notifications
+mail_password=mail['password']
 
 #logger
 loglevels = {
