@@ -19,8 +19,13 @@ class Notify:
         try:
             logging.info("sending email notification")
             logging.debug("connecting to mail server")
-            server = smtplib.SMTP_SSL(self.host, self.port)
             logging.debug("connected")
+            if self.port == 465:
+                server = smtplib.SMTP_SSL(self.host, self.port)
+            else:
+                server = smtplib.SMTP(self.host, self.port)
+                server.ehlo()
+                server.starttls()
             server.login(self.mail_from, self.mail_passwd)
             logging.debug("logged in")
             server.send_message(

@@ -39,7 +39,7 @@ Maybe you need to bypass your email [here](https://accounts.google.com/DisplayUn
 - [X] import configs from env vars instead setting in config.py
 - [X] Adjust '/feed' endpoint to return RSS feed instead of list of events
 - [ ] Improve this README
-- [ ] Adjust notify to handle SSL and Non SSL connections via SMTP
-- [ ] Test different mail providers besides gmail
+- [X] Adjust notify to handle SSL and Non SSL connections via SMTP
+- [X] Test different mail providers besides gmail(Validated against outlook, and zimbra mail)
 - [ ] Refact some pieces of code
 - [ ] CI/CD
