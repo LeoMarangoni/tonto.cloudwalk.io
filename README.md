@@ -53,6 +53,7 @@ You can check system logs using `gcloud app logs tail -s default`
 python3 -m venv .
 source bin/activate
 pip install -r requirements.txt
+gcloud auth application-default login
 python main.py
 ```
 

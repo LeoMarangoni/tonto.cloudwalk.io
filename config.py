@@ -54,5 +54,5 @@ def init():
     """logger config and Global vars to store shared data of service status"""
     global current_status
     global events
-    events = []
+    events = [{'service_name': "tontoapp", 'status':'healthy', 'updated': datetime.now()}]
     logging.basicConfig(level=loglevel, format='%(asctime)s|%(levelname)s|%(funcName)s|%(message)s')
