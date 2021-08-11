@@ -1,8 +1,11 @@
 # Cloudwalk Challenge
 
-### Get Started
 This app will perform http and tcp tests as described in [Cloudwalk Challenge](https://gist.github.com/dgvcwk/919a6fcca40f4e314b2dc135b47d4a5e)
+The Frontend must display the two services in colors green or red according to its state, and a feed with the lastest change events.
+It also have an RSS feed in `/feed` endpoint with the same events, that can be consumed by an Feed Client.
 
+
+### Get Started
 This app is ready to go for GCP, you can login via [gcloud sdk](https://cloud.google.com/sdk/gcloud) and deploy it using [terraform](https://www.terraform.io/)
 
 #### Terraform: v1.0.4
@@ -31,11 +34,11 @@ module "tontocloudwalk" {
   health_threshold = 3 # "Number of sequential successful checks to be considered Healthy"
   unhealth_threshold = 3 # Number of sequential failed checks to be considered Unhealthy
 }
+```
 
 
 
-
-Deploying to [Google Cloud App Engine](https://console.cloud.google.com/appengine)
+### Deploying to [Google Cloud App Engine](https://console.cloud.google.com/appengine)
 ```sh
 gcloud components install app-engine-python
 gcloud config set project tonto-cloudwalk-example123
@@ -45,7 +48,7 @@ gcloud app deploy
 You can check system logs using `gcloud app logs tail -s default`
 
 
-running localy:
+### running localy:
 ```
 python3 -m venv .
 source bin/activate
