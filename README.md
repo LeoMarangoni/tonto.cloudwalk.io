@@ -32,9 +32,11 @@ python main.py
 
 Note: For use GMAIL account for sending notification, maybe you need to change settings in
 [google security page](https://myaccount.google.com/security). There you may look for "third party apps" or "app password"
+If you get this error on logs: `Please log in via your web browser and then try again`
+Maybe you need to bypass your email [here](https://accounts.google.com/DisplayUnlockCaptcha)
 
 ### TODOs
-- [ ] import configs from env vars instead setting in config.py
+- [X] import configs from env vars instead setting in config.py
 - [X] Adjust '/feed' endpoint to return RSS feed instead of list of events
 - [ ] Improve this README
 - [ ] Adjust notify to handle SSL and Non SSL connections via SMTP

@@ -37,7 +37,10 @@ app = create_app()
 
 @app.route("/")
 def index():
-    return render_template('dash.html', services=config.current_status, events=config.events)
+    return render_template(
+        'dash.html',
+        services=config.data.get().get('current_status'), # Get current_status from firestore 
+        events=config.events)
 
 @app.route("/feed")
 def newfeed():

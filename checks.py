@@ -22,41 +22,44 @@ def keep(func, service_name, interval, health_th, unhealth_th):
     @wraps(func)
     def ret_func(*args, **kwargs):
         notify = Notify(config.mail_server, config.mail_port, config.mail_user,config.mail_password, config.mail_notify)
-        config.events.append({**config.current_status[service_name], **{'service':service_name}})
+        #config.events.append({**config.current_status[service_name], **{'service':service_name}})
         h_counter=0
         uh_counter=0
         while True:
+            current_status = config.data.get().get('current_status') 
             is_up = func(*args, **kwargs)
-            if config.current_status[service_name]['status']=='unhealthy':
+            if current_status[service_name]['status']=='unhealthy':
                 if not is_up:
                     h_counter=0
                 else:
                     h_counter+=1
-            if config.current_status[service_name]['status']=='healthy':
+            if current_status[service_name]['status']=='healthy':
                 if is_up:
                     uh_counter=0
                 else:
                     uh_counter+=1  
             if uh_counter==unhealth_th:
-                config.current_status[service_name]['status']='unhealthy'
-                config.current_status[service_name]['updated']=datetime.now()
+                current_status[service_name]['status']='unhealthy'
+                current_status[service_name]['updated']=datetime.now()
+                config.data.set({'current_status': current_status})
                 uh_counter=0
                 logging.info("reached threashold(%s), %s is DOWN" %(unhealth_th, service_name))
                 myemail = notify.create_email(service_name,'unhealthy')
                 notify.send_email(myemail)
-                config.events.append({**config.current_status[service_name], **{'service':service_name}})
+                config.events.append({**current_status[service_name], **{'service':service_name}})
 
             if h_counter==health_th:
-                config.current_status[service_name]['status']='healthy'
-                config.current_status[service_name]['updated']=datetime.now()
+                current_status[service_name]['status']='healthy'
+                current_status[service_name]['updated']=datetime.now()
+                config.data.set({'current_status': current_status})
                 h_counter=0
                 logging.info("reached threashold(%s), %s is UP" %(health_th, service_name))
                 myemail = notify.create_email(service_name,'healthy')
                 notify.send_email(myemail)
-                config.events.append({**config.current_status[service_name], **{'service':service_name}})
+                config.events.append({**current_status[service_name], **{'service':service_name}})
           
             logging.debug("health count: %s - unhealth count: %s" %(h_counter, uh_counter))
-            logging.debug(config.current_status)
+            logging.debug(current_status)
             time.sleep(interval)
 
     return ret_func

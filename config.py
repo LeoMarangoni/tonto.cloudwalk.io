@@ -1,23 +1,33 @@
-#import os
-#from dotenv import load_dotenv
-
-#TODO: use env vars instead setting in file
-
-from datetime import datetime
 import logging
+from datetime import datetime
+
+# Get configs stored in Google FireStore
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+collection = db.collection('tontocloudwalk')
+config = collection.document('config').get()
+data = collection.document('data')
+
+###
 
 #common
-token='' # CloudWalk challenge access token
-test_string='my text to check services' 
-check_timeout=10
-check_interval=2
-health_threshold=3
-unhealth_threshold=3
+token=config.get('authtoken') # CloudWalk challenge access token
+check_timeout=config.get('check_timeout')
+check_interval=config.get('check_interval')
+health_threshold=config.get('health_threshold')
+unhealth_threshold=config.get('unhealth_threshold')
+mail_notify=config.get('mail_notify') # user that will be notified
+test_string='my text to check services' # String that would be send to the services
 
-#http
+# Endpoints
+##http
 http_ep='https://tonto-http.cloudwalk.io' #http endpoint
-
-#tcp
+##tcp
 tcp_ep='tonto.cloudwalk.io' #tcp endpoint
 tcp_port=3000
 
@@ -27,7 +37,6 @@ mail_server='smtp.gmail.com'
 mail_port=465
 mail_user='' # email used for sending notifications
 mail_password=''
-mail_notify='' # user that will be notified
 
 #logger
 loglevels = {
@@ -37,7 +46,7 @@ loglevels = {
     'error': logging.ERROR
 }
 
-loglevel = loglevels['debug'] # set log level to debug|info|warn|error
+loglevel = loglevels[config.get('loglevel')] # set log level to debug|info|warn|error
 
 
 def init():
@@ -45,9 +54,4 @@ def init():
     global current_status
     global events
     events = []
-    current_status = {
-        'http': {"status":'unhealthy',"updated":datetime.now()},
-        'tcp': {"status":'unhealthy',"updated":datetime.now()}
-    
-    }
     logging.basicConfig(level=loglevel, format='%(asctime)s|%(levelname)s|%(funcName)s|%(message)s')
