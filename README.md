@@ -36,6 +36,11 @@ module "tontocloudwalk" {
 }
 ```
 
+```sh
+terraform init
+terraform apply
+cd ../
+```
 
 
 ### Deploying to [Google Cloud App Engine](https://console.cloud.google.com/appengine)
