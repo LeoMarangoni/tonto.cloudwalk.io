@@ -67,6 +67,14 @@ Note: For use GMAIL account for sending notification, maybe you need to change s
 If you get this error on logs: `Please log in via your web browser and then try again`
 Maybe you need to bypass your email [here](https://accounts.google.com/DisplayUnlockCaptcha)
 
+
+### Firestore
+
+All configurations and credentials are stored in [GCP Firestore](https://firebase.google.com/docs/firestore).
+After deploying with terraform you can change then directly [there](https://console.cloud.google.com/firestore)
+
+
+
 ### TODOs
 - [X] import configs from env vars instead setting in config.py
 - [X] Adjust '/feed' endpoint to return RSS feed instead of list of events
