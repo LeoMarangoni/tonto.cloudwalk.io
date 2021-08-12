@@ -3,6 +3,7 @@
 This app will perform http and tcp tests as described in [Cloudwalk Challenge](https://gist.github.com/dgvcwk/919a6fcca40f4e314b2dc135b47d4a5e)
 The Frontend must display the two services in colors green or red according to its state, and a feed with the lastest change events.
 It also have an RSS feed in `/feed` endpoint with the same events, that can be consumed by an Feed Client.
+That app sends an email alert to email in `mail_notify` every time that a status is changed
 
 
 ### Get Started
@@ -24,7 +25,7 @@ module "tontocloudwalk" {
   source = "./tontocloudwalk"
   project = "tonto-cloudwalk-example123" # Project ID
   authtoken = "" # Set here the authentication token
-  mail_notify = "user2@example.com" 
+  mail_notify = "user2@example.com" # Mail that will receive the notifications
   mail_port = 465
   mail_server = "smtp.gmail.com"
   mail_user = "user@gmail.com" # Mail account that would be used for sending mail
